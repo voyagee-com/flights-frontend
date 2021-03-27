@@ -64,7 +64,7 @@ export const Price = styled.div`
     }
   }
 
-  & button {
+  /* & button {
     width: max-content;
     padding: 8px 24px;
     line-height: 1.5em;
@@ -76,5 +76,5 @@ export const Price = styled.div`
     color: var(--lightest);
     background: var(--primary);
     cursor: pointer;
-  }
+  } */
 `;

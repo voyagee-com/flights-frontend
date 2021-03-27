@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import { Button, DateTime, Input } from '@voyage/artigas-ds'
 import { airportList } from "./airportList";
-import { Input, StyledDataList, Form, DateTime } from "./Search.styled";
+import { Inputx, StyledDataList, Form, DateTimex } from "./Search.styled";
 
 let initialSearchData = {
   originLocationCode: "",
@@ -127,33 +128,26 @@ const Search = () => {
 
   return (
     <Form>
-      <Input srOnly={srOnly}>
-        <label htmlFor="originLocationCode">From</label>
-        <input
-          id="originLocationCode"
-          name="originLocationCode"
-          type="text"
-          value={searchData.originLocationCode}
-          placeholder="Departure airport"
-          onBlur={(e) => handleBlur(e)}
-          onChange={(e) => handleChange(e)}
-          onFocus={(e) => handleFocus(e)}
-        />
-      </Input>
-      <Input srOnly={srOnly}>
-        <label htmlFor="destinationLocationCode">To</label>
-        <input
-          id="destinationLocationCode"
-          name="destinationLocationCode"
-          type="text"
-          value={searchData.destinationLocationCode}
-          list="airport-list"
-          placeholder="Arrival airport"
-          onBlur={(e) => handleBlur(e)}
-          onChange={(e) => handleChange(e)}
-          onFocus={(e) => handleFocus(e)}
-        />
-      </Input>
+      <Input
+        label="from"
+        id="originLocationCode"
+        value={searchData.originLocationCode}
+        placeholder="Departure airport"
+        onBlur={(e) => handleBlur(e)}
+        onChange={(e) => handleChange(e)}
+        onFocus={(e) => handleFocus(e)}
+      />
+
+      <Input
+        label="To"
+        id="destinationLocationCode"
+        value={searchData.destinationLocationCode}
+        placeholder="Arrival airport"
+        onBlur={(e) => handleBlur(e)}
+        onChange={(e) => handleChange(e)}
+        onFocus={(e) => handleFocus(e)}
+      />
+
       <StyledDataList display={showList}>
         {airport.map((x) => (
           <span>
@@ -169,7 +163,19 @@ const Search = () => {
         ))}
       </StyledDataList>
 
-      <DateTime srOnly={srOnly}>
+      <DateTime
+        label="Depart"
+        id="departureDate"
+        type={dateTimeType}
+        ref={inputEl}
+        min={tomorrow}
+        placeholder="Choose departure date"
+        // onBlur={(e) => handleBlur(e)}
+        onChange={(e) => handleChange(e)}
+        onFocus={(e) => handleFocus(e)}
+      />
+
+      {/*<DateTime srOnly={srOnly}>
         <label htmlFor="departureDate">Depart</label>
         <input
           id="departureDate"
@@ -182,8 +188,9 @@ const Search = () => {
           onChange={(e) => handleChange(e)}
           onFocus={(e) => handleDataFocus(e)}
         />
-      </DateTime>
-      <DateTime srOnly={srOnly}>
+        </DateTime>*/}
+
+      <DateTimex srOnly={srOnly}>
         <label htmlFor="returnDate">Return</label>
         <input
           id="returnDate"
@@ -195,7 +202,7 @@ const Search = () => {
           onChange={(e) => handleChange(e)}
           onFocus={(e) => handleDataFocus(e)}
         />
-      </DateTime>
+      </DateTimex>
 
       <label htmlFor="adults">passengers</label>
       <input

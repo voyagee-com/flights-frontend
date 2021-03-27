@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Input = styled.div`
+export const Inputx = styled.div`
   position: relative;
 
   &:focus-within label {
@@ -107,7 +107,7 @@ export const Form = styled.form`
   justify-content: space-between;
 `;
 
-export const DateTime = styled.div`
+export const DateTimex = styled.div`
   position: relative;
 
   &:focus-within label {

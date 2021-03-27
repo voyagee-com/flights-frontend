@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Button } from "@voyage/artigas-ds";
 import { FlightContext } from "../../Contexts/Flight.context";
 import Itinerary from "../Itinerary";
 import { Ticket, ItineraryGroup, Price } from "./Tickets.style";
@@ -13,6 +14,7 @@ const Tickets = ({ itineraries, price, id }) => {
   const [start, finish] = itineraries;
 
   const handleClick = (event, id) => {
+    console.log(event);
     const selectedOffer = flightOffer.filter((flight) => flight.id === id);
     dispatchEvent(
       new CustomEvent("flightOffer", {
@@ -29,7 +31,7 @@ const Tickets = ({ itineraries, price, id }) => {
       </ItineraryGroup>
       <Price>
         <span>{toCurrency(price.grandTotal)}</span>
-        <button onClick={(e) => handleClick(e, id)}>Continue</button>
+        <Button onClick={(e) => handleClick(e, id)}>Continue</Button>
       </Price>
     </Ticket>
   );
