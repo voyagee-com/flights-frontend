@@ -1,15 +1,16 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, DateTime, Input } from '@voyage/artigas-ds'
+import Counter from '../Counter'
 import { airportList } from "./airportList";
-import { Inputx, StyledDataList, Form, DateTimex } from "./Search.styled";
+import { StyledDataList, Form } from "./Search.styled";
 
 let initialSearchData = {
   originLocationCode: "",
   destinationLocationCode: "",
   departureDate: "",
   returnDate: "",
-  adults: 1,
+  adults: 2,
 };
 
 const Search = () => {
@@ -19,7 +20,6 @@ const Search = () => {
   const [showList, setShowList] = useState(false);
   const [airport, setAirport] = useState([]);
   const [fieldFocus, setFieldFocus] = useState("");
-  const [srOnly, setSrOnly] = useState(false);
   const [minData, setMinData] = useState();
   const [dateTimeType, setDateTimeType] = useState("text");
 
@@ -72,18 +72,18 @@ const Search = () => {
     setShowList(false);
   };
 
-  const handleBlur = (event) => {
-    const { textLength } = event.target;
-    console.log(textLength);
-    if (textLength > 0) {
-      setSrOnly(true);
-    }
-    // setShowList(false)
-  };
+  // const handleBlur = (event) => {
+  //   // const { textLength } = event.target;
+  //   // // console.log(textLength);
+  //   // if (textLength > 0) {
+  //   //   setSrOnly(true);
+  //   // }
+  //   // setShowList(false)
+  // };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    console.log( name, value);
     // if ( name === 'originLocationCode' || name === 'destinationLocationCode' ) {
 
     // }
@@ -118,13 +118,13 @@ const Search = () => {
     );
   };
 
-  const handleDataFocus = (event) => {
-    const { type } = event.target;
+  // const handleDataFocus = (event) => {
+  //   const { type } = event.target;
 
-    if (type === "text") {
-      setDateTimeType("date");
-    }
-  };
+  //   if (type === "text") {
+  //     setDateTimeType("date");
+  //   }
+  // };
 
   return (
     <Form>
@@ -170,48 +170,34 @@ const Search = () => {
         ref={inputEl}
         min={tomorrow}
         placeholder="Choose departure date"
-        // onBlur={(e) => handleBlur(e)}
+        onBlur={(e) => handleBlur(e)}
         onChange={(e) => handleChange(e)}
-        onFocus={(e) => handleFocus(e)}
       />
 
-      {/*<DateTime srOnly={srOnly}>
-        <label htmlFor="departureDate">Depart</label>
-        <input
-          id="departureDate"
-          name="departureDate"
-          type={dateTimeType}
-          ref={inputEl}
-          min={tomorrow}
-          placeholder="Choose departure date"
-          onBlur={(e) => handleBlur(e)}
-          onChange={(e) => handleChange(e)}
-          onFocus={(e) => handleDataFocus(e)}
-        />
-        </DateTime>*/}
+      <DateTime
+        label="Return"
+        id="returnDate"
+        type={dateTimeType}
+        min={minData}
+        placeholder="Choose return date"
+        onBlur={(e) => handleBlur(e)}
+        onChange={(e) => handleChange(e)}
+      />
+      <Counter 
+        label="Passengers" 
+        id="adults"
+        value={searchData.adults}
+        onChange={(e) => handleChange(e)}
+      />
 
-      <DateTimex srOnly={srOnly}>
-        <label htmlFor="returnDate">Return</label>
-        <input
-          id="returnDate"
-          name="returnDate"
-          type={dateTimeType}
-          min={minData}
-          placeholder="Choose return date"
-          onBlur={(e) => handleBlur(e)}
-          onChange={(e) => handleChange(e)}
-          onFocus={(e) => handleDataFocus(e)}
-        />
-      </DateTimex>
-
-      <label htmlFor="adults">passengers</label>
+      {/* <label htmlFor="adults">passengers</label>
       <input
         id="adults"
         name="adults"
         type="number"
         value={searchData.adults}
         onChange={(e) => handleChange(e)}
-      />
+      /> */}
 
       <button onClick={(e) => handleClick(e)}>Buscar</button>
     </Form>
