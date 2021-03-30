@@ -14,7 +14,7 @@ const Tickets = ({ itineraries, price, id }) => {
   const [start, finish] = itineraries;
 
   const handleClick = (event, id) => {
-    console.log(event);
+    // console.log(event);
     const selectedOffer = flightOffer.filter((flight) => flight.id === id);
     dispatchEvent(
       new CustomEvent("flightOffer", {

@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, DateTime, Input } from '@voyage/artigas-ds'
-import Counter from '../Counter'
 import { airportList } from "./airportList";
+import { StyledCounter } from '../Counter/Conter.style'
 import { StyledDataList, Form } from "./Search.styled";
 
 let initialSearchData = {
@@ -10,7 +10,7 @@ let initialSearchData = {
   destinationLocationCode: "",
   departureDate: "",
   returnDate: "",
-  adults: 2,
+  adults: 1,
 };
 
 const Search = () => {
@@ -72,21 +72,9 @@ const Search = () => {
     setShowList(false);
   };
 
-  // const handleBlur = (event) => {
-  //   // const { textLength } = event.target;
-  //   // // console.log(textLength);
-  //   // if (textLength > 0) {
-  //   //   setSrOnly(true);
-  //   // }
-  //   // setShowList(false)
-  // };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log( name, value);
-    // if ( name === 'originLocationCode' || name === 'destinationLocationCode' ) {
-
-    // }
+    console.log(name, value);
 
     if (name === "departureDate") {
       const { valueAsDate } = inputEl.current;
@@ -103,6 +91,20 @@ const Search = () => {
     setFieldFocus(event.target.name);
   };
 
+  const handleDecrement = (event) => {
+    event.preventDefault()
+    const inputNumber = event.target.nextElementSibling
+    inputNumber.stepDown()
+    updateSearchData(inputNumber.name, inputNumber.value)
+  }
+
+  const handleIncrement = (event) => {
+    event.preventDefault()
+    const inputNumber = event.target.previousElementSibling
+    inputNumber.stepUp()
+    updateSearchData(inputNumber.name, inputNumber.value)
+  }
+
   const handleClick = (event) => {
     event.preventDefault();
     const {
@@ -117,14 +119,6 @@ const Search = () => {
       `/tickets/${originLocationCode}-${destinationLocationCode}/${departureDate}/${returnDate}/${adults}`
     );
   };
-
-  // const handleDataFocus = (event) => {
-  //   const { type } = event.target;
-
-  //   if (type === "text") {
-  //     setDateTimeType("date");
-  //   }
-  // };
 
   return (
     <Form>
@@ -183,23 +177,26 @@ const Search = () => {
         onBlur={(e) => handleBlur(e)}
         onChange={(e) => handleChange(e)}
       />
-      <Counter 
-        label="Passengers" 
-        id="adults"
-        value={searchData.adults}
-        onChange={(e) => handleChange(e)}
-      />
+      <StyledCounter>
+        <label htmlFor="adults">passengers</label>
+        <button
+          aria-label="Decrement value"
+          onClick={(e) => handleDecrement(e)}
+        >-</button>
+        <input
+          id="adults"
+          name="adults"
+          min="1"
+          type="number"
+          value={searchData.adults}
+        />
+        <button
+          aria-label="Increment Value"
+          onClick={(e) => handleIncrement(e)}
+        >+</button>
+      </StyledCounter>
 
-      {/* <label htmlFor="adults">passengers</label>
-      <input
-        id="adults"
-        name="adults"
-        type="number"
-        value={searchData.adults}
-        onChange={(e) => handleChange(e)}
-      /> */}
-
-      <button onClick={(e) => handleClick(e)}>Buscar</button>
+      <Button onClick={(e) => handleClick(e)}>Search</Button>
     </Form>
   );
 };
