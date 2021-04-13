@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { FlightContextProvider } from "../../Contexts/Flight.context";
 import Loader from "../../Components/Loader"
-import Search from "../../Components/Search";
 import Tickets from "../../Components/Tickets";
 import { Filters, OffersContainer } from "./Offers.style";
 
@@ -12,15 +11,9 @@ const Offers = (props) => {
   let { origen, destino, ida, volta, adultos } = useParams();
 
   const [ loader, setLoader ] = useState('idle')
-  const [flightOffer, setFlightOffer] = useState([]);
+  const [ flightOffer, setFlightOffer ] = useState([]);
 
   useEffect(() => {
-    const store = window.localStorage.getItem('flightz')
-    if (store) {
-      console.log('storage');
-      setFlightOffer(JSON.parse(store))
-      return
-    }
     const getFlightsUrl = `https://voyageecom.herokuapp.com/flights?originLocationCode=${origen}&destinationLocationCode=${destino}&departureDate=${ida}&returnDate=${volta}&adults=${adultos}&max=${5}`;
 
     setLoader('loading')

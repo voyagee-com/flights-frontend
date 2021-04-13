@@ -2,8 +2,7 @@ import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, DateTime, Input } from '@voyage/artigas-ds'
 import { airportList } from "./airportList";
-import { StyledCounter } from '../Counter/Conter.style'
-import { StyledDataList, Form } from "./Search.styled";
+import { StyledDataList, Form, StyledCounter } from "./Search.styled";
 
 let initialSearchData = {
   originLocationCode: "",
