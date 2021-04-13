@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, DateTime, Input } from '@voyage/artigas-ds'
 import { airportList } from "./airportList";
-import { StyledDataList, Form, StyledCounter } from "./Search.styled";
+import { StyledDataList, StyledForm } from "./Search.styled";
 
 let initialSearchData = {
   originLocationCode: "",
@@ -36,20 +36,16 @@ const Search = () => {
   };
 
   const updateSearchData = (name, value) => {
-    console.log("updateSearchData", name, value);
     let internalObject = {
       ...searchData,
       [name]: value,
     };
-    // if(addressFormData[name].validate) {
-    //   internalObject[name].error = Validate(value, addressFormData[name].validate)
-    // }
 
     setSeachData(internalObject);
   };
 
   const filterAirport = (value) => {
-    console.log("entrou aqui");
+
     const filtred = airportList.filter(
       (airport) =>
         airport.iataCode.includes(value) ||
@@ -73,7 +69,6 @@ const Search = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value);
 
     if (name === "departureDate") {
       const { valueAsDate } = inputEl.current;
@@ -120,7 +115,7 @@ const Search = () => {
   };
 
   return (
-    <Form>
+    <StyledForm>
       <Input
         label="from"
         id="originLocationCode"
@@ -176,7 +171,7 @@ const Search = () => {
         onBlur={(e) => handleBlur(e)}
         onChange={(e) => handleChange(e)}
       />
-      <StyledCounter>
+      <div className="counter">
         <label htmlFor="adults">passengers</label>
         <button
           aria-label="Decrement value"
@@ -193,10 +188,10 @@ const Search = () => {
           aria-label="Increment Value"
           onClick={(e) => handleIncrement(e)}
         >+</button>
-      </StyledCounter>
+      </div>
 
       <Button onClick={(e) => handleClick(e)}>Search</Button>
-    </Form>
+    </StyledForm>
   );
 };
 export default Search;

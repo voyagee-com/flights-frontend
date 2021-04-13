@@ -314,4 +314,10 @@ export const airportList = [
     airportCity: "Montes Claros",
     airportUF: "Minas Gerais",
   },
+  {
+    iataCode: "MIA",
+    airportName: "Miami International Airport",
+    airportCity: "Miami",
+    airportUF: "FLorida",
+  },
 ];

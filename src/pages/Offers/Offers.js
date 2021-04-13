@@ -22,15 +22,18 @@ const Offers = (props) => {
       .then((res) => {
         window.localStorage.setItem('flightz', JSON.stringify(res.data))
         setFlightOffer(res.data);
-        console.log(res.data);
       })
       .finally(() => {
-        console.log("Findou")
         setLoader('idle')
       });
   }, []);
 
-  if (loader === 'loading') return <Loader />
+  if (loader === 'loading') return (
+    <OffersContainer className="container">
+      <Loader />
+    </OffersContainer>
+  )
+
   return (
     <FlightContextProvider value={flightOffer}>
       <OffersContainer className="container">
