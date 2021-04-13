@@ -10,14 +10,16 @@ const toCurrency = (number) => {
 };
 
 const Tickets = ({ itineraries, price, id }) => {
+
   const { flightOffer } = useContext(FlightContext);
   const [start, finish] = itineraries;
 
   const handleClick = (event, id) => {
-    // console.log(event);
-    const selectedOffer = flightOffer.filter((flight) => flight.id === id);
+
+    const selectedOffer = flightOffer.filter((flight) => flight.id === id)
+
     dispatchEvent(
-      new CustomEvent("flightOffer", {
+      new CustomEvent("@voyage-flight-app-flightOffer", {
         detail: selectedOffer,
       })
     );
